@@ -7,5 +7,4 @@ public class Transferencia {
     private String numero;
     private BigDecimal monto;
 
-    // constructor, getters y setters
 }
