@@ -15,6 +15,6 @@ public class BankingAppApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("myBean.hello()");
+		System.out.println("bank-app");
 	}
 }

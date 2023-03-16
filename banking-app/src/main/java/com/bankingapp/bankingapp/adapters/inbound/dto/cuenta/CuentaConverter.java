@@ -1,4 +1,4 @@
-package com.bankingapp.bankingapp.adapters.dto.cuenta;
+package com.bankingapp.bankingapp.adapters.inbound.dto.cuenta;
 
 import com.bankingapp.bankingapp.domain.AbstractConverter;
 import com.bankingapp.bankingapp.domain.entity.Cuenta;

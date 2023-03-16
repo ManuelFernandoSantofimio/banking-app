@@ -1,4 +1,4 @@
-package com.bankingapp.bankingapp.adapters.dto.user;
+package com.bankingapp.bankingapp.adapters.inbound.dto.transferencia;
 
 import com.bankingapp.bankingapp.domain.AbstractConverter;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
