@@ -1,5 +1,8 @@
 package com.bankingapp.bankingapp.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class Usuario {
     @Column(name = "email", length = 255)
     private String email;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Cuenta> cuentas = new ArrayList<>();
 
     public Usuario() {}
