@@ -1,16 +1,20 @@
 package com.bankingapp.bankingapp.domain.interfaces;
 
+import com.bankingapp.bankingapp.adapters.dto.user.UserDTO;
 import com.bankingapp.bankingapp.domain.Colchon;
 import com.bankingapp.bankingapp.domain.Cuenta;
 import com.bankingapp.bankingapp.domain.Transferencia;
 import com.bankingapp.bankingapp.domain.entity.User;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public interface UserInterface extends banckInterface {
-    User createUser(User user);
+    UserDTO createUser(User user);
+    List<User> getAllUser();
 
-    com.bankingapp.bankingapp.domain.entity.User login(com.bankingapp.bankingapp.domain.entity.User user);
+    UserDTO login(User user);
 
     Cuenta createCuenta(Long id, Cuenta account);
 

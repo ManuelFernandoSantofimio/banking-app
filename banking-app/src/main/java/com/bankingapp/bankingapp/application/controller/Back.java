@@ -1,5 +1,6 @@
 package com.bankingapp.bankingapp.application.controller;
 
+import com.bankingapp.bankingapp.adapters.dto.user.UserDTO;
 import com.bankingapp.bankingapp.domain.*;
 import com.bankingapp.bankingapp.domain.interfaces.banckInterface;
 import com.bankingapp.bankingapp.domain.repository.UserRepository;
@@ -15,6 +16,16 @@ public class Back implements banckInterface {
 
     public Back(UserRepository userdb) {
         this.userdb = userdb;
+    }
+
+    @Override
+    public UserDTO login(com.bankingapp.bankingapp.domain.entity.User user) {
+        return null;
+    }
+
+    @Override
+    public UserDTO createUser(com.bankingapp.bankingapp.domain.entity.User user) {
+        return null;
     }
 
     @Override
