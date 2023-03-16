@@ -16,6 +16,7 @@ public class CuentaConverter extends AbstractConverter<Cuenta, CuentaDTO> {
     @Override
     public CuentaDTO fromEntity(Cuenta entity) {
         CuentaDTO cuenta = new CuentaDTO();
+        cuenta.setId(entity.getId());
         cuenta.setNumero(entity.getNumero());
         cuenta.setSaldo(entity.getSaldo());
         return cuenta;

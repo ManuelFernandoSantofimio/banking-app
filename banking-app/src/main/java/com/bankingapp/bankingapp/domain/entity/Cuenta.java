@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 @Table(name = "cuentas")
 public class Cuenta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cuenta", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_cuenta", unique = true)
     private Long id;
     @Column(name = "numero", length = 255)
     private String numero;
@@ -21,6 +21,14 @@ public class Cuenta {
     private Usuario usuario;
 
     public Cuenta() {}
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public Cuenta(BigDecimal saldo, Usuario usuario) {
         this.saldo = saldo;

@@ -10,6 +10,7 @@ import com.bankingapp.bankingapp.domain.entity.Cuenta;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
 import com.bankingapp.bankingapp.domain.entity.Usuario;
 import com.bankingapp.bankingapp.domain.repository.CuentaRepository;
+import com.bankingapp.bankingapp.domain.repository.TransferenciaRepository;
 import com.bankingapp.bankingapp.domain.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,12 @@ import java.util.Random;
 public class UserController {
     private final CuentaRepository cuentadb;
     private final UserRepository userdb;
+    private final TransferenciaRepository transferenciadb;
 
-    public UserController(CuentaRepository cuentadb, UserRepository userdb) {
+    public UserController(CuentaRepository cuentadb, UserRepository userdb, TransferenciaRepository transferenciadb) {
         this.cuentadb = cuentadb;
         this.userdb = userdb;
+        this.transferenciadb = transferenciadb;
     }
 
     public UserDTO createUser(Usuario usuario) {
@@ -35,12 +38,12 @@ public class UserController {
         return userDTO;
     }
 
-    public List<Cuenta> getAllCuentas() {
+    public List<CuentaDTO> getAllCuentas() {
         CuentaConverter converter = new CuentaConverter();
         List<CuentaDTO> userDTO = converter.fromEntity(cuentadb.findAll());
         List<Cuenta> x = cuentadb.findAll();
 
-        return x;
+        return userDTO;
     }
 
 
@@ -55,7 +58,9 @@ public class UserController {
         cuenta.setNumero(String.valueOf(numAleatorio));
 
         cuenta.setSaldo(BigDecimal.TEN);
-        cuenta =  cuentadb.save(cuenta);
+        cuenta.setUsuario(user);
+        cuentadb.save(cuenta);
+        userdb.save(user);
         CuentaDTO cuentaDTO = converter.fromEntity(cuenta);
         return cuentaDTO;
     }
@@ -72,6 +77,7 @@ public class UserController {
         destino.setSaldo(destino.getSaldo().add(transaccionDTO.getMonto()));
         cuentadb.save(origen);
         cuentadb.save(destino);
+        transferenciadb.save(transferencia);
         return transaccionDTO;
     }
 
@@ -80,6 +86,12 @@ public class UserController {
         List<UserDTO> userDTO = converter.fromEntity(userdb.findAll());
         List<Usuario> x = userdb.findAll();
         return x;
+    }
+    public List<TransaccionDTO> getAllTransferencia() {
+        TransaccionConverter converter = new TransaccionConverter();
+        List<TransaccionDTO> transaccionDTO = converter.fromEntity(transferenciadb.findAll());
+
+        return transaccionDTO;
     }
 
 }
