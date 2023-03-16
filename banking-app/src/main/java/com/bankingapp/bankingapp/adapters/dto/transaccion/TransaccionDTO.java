@@ -1,4 +1,4 @@
-package com.bankingapp.bankingapp.adapters.dto.user;
+package com.bankingapp.bankingapp.adapters.dto.transaccion;
 
 import java.math.BigDecimal;
 

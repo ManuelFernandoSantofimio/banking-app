@@ -2,8 +2,8 @@ package com.bankingapp.bankingapp.application.controller;
 
 import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaConverter;
 import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaDTO;
-import com.bankingapp.bankingapp.adapters.dto.user.TransaccionConverter;
-import com.bankingapp.bankingapp.adapters.dto.user.TransaccionDTO;
+import com.bankingapp.bankingapp.adapters.dto.transaccion.TransaccionConverter;
+import com.bankingapp.bankingapp.adapters.dto.transaccion.TransaccionDTO;
 import com.bankingapp.bankingapp.domain.entity.Cuenta;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
 import com.bankingapp.bankingapp.domain.repository.CuentaRepository;

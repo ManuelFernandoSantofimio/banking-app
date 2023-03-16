@@ -1,7 +1,7 @@
 package com.bankingapp.bankingapp.adapters.inbound;
 
 import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaDTO;
-import com.bankingapp.bankingapp.adapters.dto.user.TransaccionDTO;
+import com.bankingapp.bankingapp.adapters.dto.transaccion.TransaccionDTO;
 import com.bankingapp.bankingapp.application.controller.UserController;
 import com.bankingapp.bankingapp.domain.entity.Cuenta;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserRestController {
+public class CuentaRestController {
     private final UserController userController;
 
-    public UserRestController(UserController userController) {
+    public CuentaRestController(UserController userController) {
         this.userController = userController;
     }
 
