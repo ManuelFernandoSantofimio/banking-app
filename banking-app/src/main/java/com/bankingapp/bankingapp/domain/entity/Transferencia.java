@@ -13,41 +13,38 @@ public class Transferencia {
     @Column(name = "id_transferencia", nullable = false, unique = true)
     private Long id;
     @Column(name = "numero", length = 255)
-    private String cuentaOrigen;
+    private Long cuentaOrigen;
     @Column(name = "saldo", length = 255)
-    private String cuentaDestino;
+    private Long cuentaDestino;
     @Column(name = "monto", length = 255)
     private BigDecimal monto;
-    @ManyToOne
-    @JsonBackReference
-    private User user;
 
     public Transferencia() {
     }
 
-    public Transferencia(String cuentaOrigen, String cuentaDestino, BigDecimal monto) {
+    public Transferencia(Long cuentaOrigen, Long cuentaDestino, BigDecimal monto) {
         this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
         this.monto = monto;
     }
 
-    public String getCuentaOrigen() {
-        return cuentaOrigen;
+    public Long getCuentaOrigen() {
+        return this.cuentaOrigen;
     }
 
-    public String getCuentaDestino() {
+    public Long getCuentaDestino() {
         return cuentaDestino;
     }
 
     public BigDecimal getMonto() {
-        return monto;
+        return this.monto;
     }
 
-    public void setCuentaOrigen(String cuentaOrigen) {
+    public void setCuentaOrigen(Long cuentaOrigen) {
         this.cuentaOrigen = cuentaOrigen;
     }
 
-    public void setCuentaDestino(String cuentaDestino) {
+    public void setCuentaDestino(Long cuentaDestino) {
         this.cuentaDestino = cuentaDestino;
     }
 
@@ -62,7 +59,6 @@ public class Transferencia {
                 ", cuentaOrigen='" + cuentaOrigen + '\'' +
                 ", cuentaDestino='" + cuentaDestino + '\'' +
                 ", monto=" + monto +
-                ", user=" + user +
                 '}';
     }
 }

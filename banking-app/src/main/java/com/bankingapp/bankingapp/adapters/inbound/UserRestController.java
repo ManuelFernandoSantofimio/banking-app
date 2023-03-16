@@ -1,10 +1,10 @@
 package com.bankingapp.bankingapp.adapters.inbound;
 
-import com.bankingapp.bankingapp.adapters.dto.user.UserConverter;
-import com.bankingapp.bankingapp.adapters.dto.user.UserDTO;
+import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaDTO;
+import com.bankingapp.bankingapp.adapters.dto.user.TransaccionDTO;
 import com.bankingapp.bankingapp.application.controller.UserController;
-import com.bankingapp.bankingapp.domain.entity.User;
-import org.springframework.http.MediaType;
+import com.bankingapp.bankingapp.domain.entity.Cuenta;
+import com.bankingapp.bankingapp.domain.entity.Transferencia;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +19,22 @@ public class UserRestController {
         this.userController = userController;
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
-        UserConverter converter = new UserConverter();
-        User userEntity = converter.fromDto(userDTO);
-        UserDTO userdto = userController.createUser(userEntity);
+    @GetMapping("/cuenta")
+    public ResponseEntity<List<Cuenta>> getAllCuentas(){
+        List<Cuenta> userdto = userController.getAllCuentas();
         return ResponseEntity.status(200)
                 .body(userdto);
     }
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUser(){
-        List<User> userdto = userController.getAllUser();
+    @PostMapping("/cuenta")
+    public ResponseEntity<CuentaDTO> createCuenta(){
+        CuentaDTO userdto = userController.createCuenta();
         return ResponseEntity.status(200)
                 .body(userdto);
+    }
+    @PostMapping("/transferencia")
+    public ResponseEntity<TransaccionDTO> transferencia(@RequestBody Transferencia transferencia){
+        TransaccionDTO transaccionDTO = userController.transferencia(transferencia);
+        return ResponseEntity.status(200)
+                .body(transaccionDTO);
     }
 }
