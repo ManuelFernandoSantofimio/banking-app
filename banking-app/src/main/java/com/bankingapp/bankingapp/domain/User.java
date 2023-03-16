@@ -1,11 +1,15 @@
 package com.bankingapp.bankingapp.domain;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.List;
+@EnableJpaRepositories
 public class User {
     private Long id;
     private String Name;
     private String email;
+    private String pass;
+    private List<Cuenta> cuentas;
 
     public void setId(Long id) {
         this.id = id;
@@ -43,10 +47,13 @@ public class User {
         return pass;
     }
 
+    public void setName(String name) {
+        Name = name;
+    }
+
     public List<Cuenta> getCuentas() {
         return cuentas;
     }
 
-    private String pass;
-    private List<Cuenta> cuentas;
+
 }

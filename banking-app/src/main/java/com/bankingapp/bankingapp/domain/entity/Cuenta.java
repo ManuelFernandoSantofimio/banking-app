@@ -1,8 +1,7 @@
 package com.bankingapp.bankingapp.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
-
 @Entity
 @Table
 public class Cuenta {
@@ -17,6 +16,7 @@ public class Cuenta {
     @Column(name = "pass", length = 255)
     private String pass;
     @ManyToOne
+    @JsonBackReference
     private User user;
 
     public Cuenta() {
