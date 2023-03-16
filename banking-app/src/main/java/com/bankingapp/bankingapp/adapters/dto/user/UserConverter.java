@@ -19,7 +19,8 @@ public class UserConverter extends AbstractConverter<User, UserDTO> {
     @Override
     public UserDTO fromEntity(User entity) {
         UserDTO user = new UserDTO();
-        user.setId(entity.getId());
-        return null;
+        user.setName(entity.getName());
+        user.setEmail(entity.getEmail());
+        return user;
     }
 }

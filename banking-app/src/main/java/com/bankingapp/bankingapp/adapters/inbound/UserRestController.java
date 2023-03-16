@@ -8,29 +8,30 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
     private final UserController userController;
 
-    public UserRestController(UserController userController, UserController userControoler) {
+    public UserRestController(UserController userController) {
         this.userController = userController;
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<User> createUser(@RequestBody UserDTO user){
-        UserConverter converter = new UserConverter();
-        User userEntity = converter.fromDto(user);
-        userController.createUser(userEntity);
-        return ResponseEntity.status(200)
-                .body(userEntity);
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> viewAllUser(@PathVariable  UserDTO userDTO){
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
         UserConverter converter = new UserConverter();
         User userEntity = converter.fromDto(userDTO);
-        userController.createUser(userEntity);
-        return null;
+        UserDTO userdto = userController.createUser(userEntity);
+        return ResponseEntity.status(200)
+                .body(userdto);
+    }
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUser(){
+        List<User> userdto = userController.getAllUser();
+        return ResponseEntity.status(200)
+                .body(userdto);
     }
 }
