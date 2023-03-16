@@ -1,14 +1,12 @@
 package com.bankingapp.bankingapp.application.controller;
 
-import com.bankingapp.bankingapp.adapters.dto.user.UserConverter;
-import com.bankingapp.bankingapp.adapters.dto.user.UserDTO;
-import com.bankingapp.bankingapp.domain.Colchon;
-import com.bankingapp.bankingapp.domain.Cuenta;
-import com.bankingapp.bankingapp.domain.Transferencia;
-import com.bankingapp.bankingapp.domain.entity.User;
-import com.bankingapp.bankingapp.domain.interfaces.UserInterface;
-import com.bankingapp.bankingapp.domain.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaConverter;
+import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaDTO;
+import com.bankingapp.bankingapp.adapters.dto.user.TransaccionConverter;
+import com.bankingapp.bankingapp.adapters.dto.user.TransaccionDTO;
+import com.bankingapp.bankingapp.domain.entity.Cuenta;
+import com.bankingapp.bankingapp.domain.entity.Transferencia;
+import com.bankingapp.bankingapp.domain.repository.*;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
@@ -16,52 +14,25 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-public class UserController implements UserInterface {
+public class UserController {
+    private final CuentaRepository cuentadb;
 
-    private final UserRepository userdb;
-
-    public UserController(UserRepository userdb) {
-        this.userdb = userdb;
+    public UserController(CuentaRepository cuentadb) {
+        this.cuentadb = cuentadb;
     }
 
 
-    @Override
-    public UserDTO login(User user) {
-        return null;
-    }
-
-
-
-    @Override
-    public UserDTO createUser(User user) {
-        UserConverter converter = new UserConverter();
-        User savedUser = userdb.save(user);
-        UserDTO userDTO = converter.fromEntity(savedUser);
-        return userDTO;
-    }
-
-    @Override
-    public com.bankingapp.bankingapp.domain.User login(com.bankingapp.bankingapp.domain.User user) {
-        return null;
-    }
-
-    @Override
-    public UserController createUser(UserController user) {
-        return null;
-    }
-
-    @Override
-    public List<User> getAllUser() {
-        UserConverter converter = new UserConverter();
-        List<UserDTO> userDTO = converter.fromEntity(userdb.findAll());
-        List<User> x = userdb.findAll();
+    public List<Cuenta> getAllCuentas() {
+        CuentaConverter converter = new CuentaConverter();
+        List<CuentaDTO> userDTO = converter.fromEntity(cuentadb.findAll());
+        List<Cuenta> x = cuentadb.findAll();
 
         return x;
     }
 
-    @Override
-    public Cuenta createCuenta(Long id, Cuenta account) {
-        User user = userdb.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+    public CuentaDTO createCuenta() {
+        CuentaConverter converter = new CuentaConverter();
 
         Cuenta cuenta = new Cuenta();
         Random random = new Random();
@@ -70,22 +41,24 @@ public class UserController implements UserInterface {
         cuenta.setNumero(String.valueOf(numAleatorio));
 
         cuenta.setSaldo(BigDecimal.ZERO);
-        userdb.save(user);
-        return cuenta;
+        cuenta =  cuentadb.save(cuenta);
+        CuentaDTO cuentaDTO = converter.fromEntity(cuenta);
+        return cuentaDTO;
     }
 
-    @Override
-    public void transferencia(Transferencia transferencia) {
 
+    public TransaccionDTO transferencia(Transferencia transferencia) {
+        TransaccionConverter converter = new TransaccionConverter();
+        TransaccionDTO transaccionDTO = converter.fromEntity(transferencia);
+
+        Cuenta origen = cuentadb.findById(transaccionDTO.getCuentaOrigen()).orElseThrow();
+        Cuenta destino = cuentadb.findById(transaccionDTO.getCuentaDestino()).orElseThrow();
+
+        origen.setSaldo(origen.getSaldo().subtract(transaccionDTO.getMonto()));
+        destino.setSaldo(destino.getSaldo().add(transaccionDTO.getMonto()));
+        cuentadb.save(origen);
+        cuentadb.save(destino);
+        return transaccionDTO;
     }
 
-    @Override
-    public void accountData(Cuenta cuenta) {
-
-    }
-
-    @Override
-    public void colchon(Colchon colchon) {
-
-    }
 }

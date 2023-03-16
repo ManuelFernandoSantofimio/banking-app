@@ -1,24 +1,11 @@
-package com.bankingapp.bankingapp.domain.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+package com.bankingapp.bankingapp.adapters.dto.cuenta;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table
-public class Cuenta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_cuenta", nullable = false, unique = true)
+public class CuentaDTO {
     private Long id;
-    @Column(name = "numero", length = 255)
-    private String numero;
-    @Column(name = "saldo", length = 255)
+    private  String numero;
     private BigDecimal saldo;
-
-    public Cuenta() {
-    }
 
     public Long getId() {
         return id;
@@ -44,10 +31,9 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
-
     @Override
     public String toString() {
-        return "Cuenta{" +
+        return "CuentaDTO{" +
                 "id=" + id +
                 ", numero='" + numero + '\'' +
                 ", saldo=" + saldo +
