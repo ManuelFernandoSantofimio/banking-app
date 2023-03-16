@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TransferenciaRestControllerTest {
+public class TransferenciaRestControllerTest {
 
     @Test
     void transferencia() {

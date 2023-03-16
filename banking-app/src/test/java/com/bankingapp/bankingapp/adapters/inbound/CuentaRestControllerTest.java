@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CuentaRestControllerTest {
+public class CuentaRestControllerTest {
     private CuentaRestController cuentaRestController;
     private UserController userControllerMock;
 
