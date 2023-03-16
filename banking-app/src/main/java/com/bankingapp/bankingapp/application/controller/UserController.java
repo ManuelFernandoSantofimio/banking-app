@@ -37,35 +37,6 @@ public class UserController {
         UserDTO userDTO = converter.fromEntity(savedUser);
         return userDTO;
     }
-
-    public List<CuentaDTO> getAllCuentas() {
-        CuentaConverter converter = new CuentaConverter();
-        List<CuentaDTO> userDTO = converter.fromEntity(cuentadb.findAll());
-        List<Cuenta> x = cuentadb.findAll();
-
-        return userDTO;
-    }
-
-
-    public CuentaDTO createCuenta(Long id) {
-        Usuario user = userdb.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        CuentaConverter converter = new CuentaConverter();
-
-        Cuenta cuenta = new Cuenta();
-        Random random = new Random();
-
-        int numAleatorio = random.nextInt(900000000) + 100000000;
-        cuenta.setNumero(String.valueOf(numAleatorio));
-
-        cuenta.setSaldo(BigDecimal.TEN);
-        cuenta.setUsuario(user);
-        cuentadb.save(cuenta);
-        userdb.save(user);
-        CuentaDTO cuentaDTO = converter.fromEntity(cuenta);
-        return cuentaDTO;
-    }
-
-
     public TransaccionDTO transferencia(Transferencia transferencia) {
         TransaccionConverter converter = new TransaccionConverter();
         TransaccionDTO transaccionDTO = converter.fromEntity(transferencia);
