@@ -1,5 +1,6 @@
 package com.bankingapp.bankingapp.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public class Colchon {
     @Column(name = "saldo", length = 255)
     private BigDecimal saldo;
     @ManyToOne
+    @JsonBackReference
     private User user;
 
     public Colchon() {

@@ -1,24 +1,25 @@
 package com.bankingapp.bankingapp.adapters.dto.user;
 
 import com.bankingapp.bankingapp.domain.AbstractConverter;
-import com.bankingapp.bankingapp.domain.User;
+import com.bankingapp.bankingapp.domain.entity.User;
 
 import java.util.List;
 
 public class UserConverter extends AbstractConverter<User, UserDTO> {
+
     @Override
     public User fromDto(UserDTO dto) {
         User user = new User();
-        user.setId(dto.getId());
-        return null;
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPass(dto.getPass());
+        return user;
     }
 
     @Override
     public UserDTO fromEntity(User entity) {
         UserDTO user = new UserDTO();
         user.setId(entity.getId());
-        user.setUsername(entity.getName());
-        user.setPassword(entity.getPass());
         return null;
     }
 }

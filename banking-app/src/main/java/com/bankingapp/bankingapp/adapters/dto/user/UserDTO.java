@@ -2,31 +2,40 @@ package com.bankingapp.bankingapp.adapters.dto.user;
 
 public class UserDTO {
     private Long id;
-    private String password;
-    private String username;
+    private String name;
+    private String email;
+    private String pass;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+
+    public String getPass() {
+        return pass;
     }
 
-    public String getPassword() {
-        return password;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 }

@@ -1,5 +1,6 @@
 package com.bankingapp.bankingapp.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -15,9 +16,10 @@ public class Transferencia {
     private String cuentaOrigen;
     @Column(name = "saldo", length = 255)
     private String cuentaDestino;
-    @Column(name = "saldo", length = 255)
+    @Column(name = "monto", length = 255)
     private BigDecimal monto;
     @ManyToOne
+    @JsonBackReference
     private User user;
 
     public Transferencia() {
