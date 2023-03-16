@@ -4,6 +4,7 @@ import com.bankingapp.bankingapp.adapters.inbound.dto.cuenta.CuentaConverter;
 import com.bankingapp.bankingapp.adapters.inbound.dto.cuenta.CuentaDTO;
 import com.bankingapp.bankingapp.adapters.inbound.dto.transferencia.TransaccionConverter;
 import com.bankingapp.bankingapp.adapters.inbound.dto.transferencia.TransaccionDTO;
+import com.bankingapp.bankingapp.application.services.TransaccionService;
 import com.bankingapp.bankingapp.domain.entity.Cuenta;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
 import com.bankingapp.bankingapp.domain.repository.CuentaRepository;
@@ -18,26 +19,22 @@ import java.util.Random;
 public class bankController {
     private final CuentaRepository cuentadb;
     private final TransferenciaRepository transferenciadb;
+    private final TransaccionService transaccionService;
 
-    public bankController(CuentaRepository cuentadb, TransferenciaRepository transferenciaRepository) {
+    public bankController(CuentaRepository cuentadb, TransferenciaRepository transferenciaRepository, TransaccionService transaccionService, TransaccionService transaccionService1) {
         this.cuentadb = cuentadb;
         this.transferenciadb = transferenciaRepository;
+        this.transaccionService = transaccionService;
     }
 
 
     public List<Cuenta> getAllCuentas() {
-        CuentaConverter converter = new CuentaConverter();
-        List<CuentaDTO> userDTO = converter.fromEntity(cuentadb.findAll());
         List<Cuenta> x = cuentadb.findAll();
-
         return x;
     }
     public List<Transferencia> getAllTransferencias() {
-        CuentaConverter converter = new CuentaConverter();
-
-        List<Transferencia> x = transferenciadb.findAll();
-
-        return x;
+        List<Transferencia> transferencia = transaccionService.getAll();
+        return transferencia;
     }
 
 
