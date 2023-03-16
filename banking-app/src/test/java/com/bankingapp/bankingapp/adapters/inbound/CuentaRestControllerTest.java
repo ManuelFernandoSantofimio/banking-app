@@ -2,6 +2,7 @@ package com.bankingapp.bankingapp.adapters.inbound;
 
 import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaDTO;
 import com.bankingapp.bankingapp.adapters.dto.transaccion.TransaccionDTO;
+import com.bankingapp.bankingapp.application.controller.CuentaController;
 import com.bankingapp.bankingapp.application.controller.UserController;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,19 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CuentaRestControllerTest {
     private CuentaRestController cuentaRestController;
-    private UserController userControllerMock;
+    private CuentaController cuentaControllerMock;
 
     @BeforeEach
     public void setUp() {
-        userControllerMock = Mockito.mock(UserController.class);
-        cuentaRestController = new CuentaRestController(userControllerMock);
+        cuentaControllerMock = Mockito.mock(CuentaController.class);
+        cuentaRestController = new CuentaRestController(cuentaControllerMock);
     }
 
     @Test
     void getAllCuentas() {
         List<CuentaDTO> cuentas = new ArrayList<>();
 
-        Mockito.when(userControllerMock.getAllCuentas()).thenReturn(cuentas);
+        Mockito.when(cuentaControllerMock.getAllCuentas()).thenReturn(cuentas);
         ResponseEntity<List<CuentaDTO>> response = cuentaRestController.getAllCuentas();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(cuentas, response.getBody());
@@ -39,7 +40,7 @@ public class CuentaRestControllerTest {
     void createCuenta() {
         CuentaDTO cuentaDTO = new CuentaDTO();
 
-        Mockito.when(userControllerMock.createCuenta(cuentaDTO.getId())).thenReturn(cuentaDTO);
+        Mockito.when(cuentaControllerMock.createCuenta(cuentaDTO.getId())).thenReturn(cuentaDTO);
         ResponseEntity<CuentaDTO> response = cuentaRestController.createCuenta(cuentaDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(cuentaDTO, response.getBody());
