@@ -4,9 +4,14 @@ import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaConverter;
 import com.bankingapp.bankingapp.adapters.dto.cuenta.CuentaDTO;
 import com.bankingapp.bankingapp.adapters.dto.transaccion.TransaccionConverter;
 import com.bankingapp.bankingapp.adapters.dto.transaccion.TransaccionDTO;
+import com.bankingapp.bankingapp.adapters.dto.usuarios.UserConverter;
+import com.bankingapp.bankingapp.adapters.dto.usuarios.UserDTO;
 import com.bankingapp.bankingapp.domain.entity.Cuenta;
 import com.bankingapp.bankingapp.domain.entity.Transferencia;
+import com.bankingapp.bankingapp.domain.entity.Usuario;
 import com.bankingapp.bankingapp.domain.repository.CuentaRepository;
+import com.bankingapp.bankingapp.domain.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
@@ -16,11 +21,19 @@ import java.util.Random;
 @Controller
 public class UserController {
     private final CuentaRepository cuentadb;
+    private final UserRepository userdb;
 
-    public UserController(CuentaRepository cuentadb) {
+    public UserController(CuentaRepository cuentadb, UserRepository userdb) {
         this.cuentadb = cuentadb;
+        this.userdb = userdb;
     }
 
+    public UserDTO createUser(Usuario usuario) {
+        UserConverter converter = new UserConverter();
+        Usuario savedUser = userdb.save(usuario);
+        UserDTO userDTO = converter.fromEntity(savedUser);
+        return userDTO;
+    }
 
     public List<Cuenta> getAllCuentas() {
         CuentaConverter converter = new CuentaConverter();
@@ -31,7 +44,8 @@ public class UserController {
     }
 
 
-    public CuentaDTO createCuenta() {
+    public CuentaDTO createCuenta(Long id) {
+        Usuario user = userdb.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
         CuentaConverter converter = new CuentaConverter();
 
         Cuenta cuenta = new Cuenta();
@@ -40,7 +54,7 @@ public class UserController {
         int numAleatorio = random.nextInt(900000000) + 100000000;
         cuenta.setNumero(String.valueOf(numAleatorio));
 
-        cuenta.setSaldo(BigDecimal.ZERO);
+        cuenta.setSaldo(BigDecimal.TEN);
         cuenta =  cuentadb.save(cuenta);
         CuentaDTO cuentaDTO = converter.fromEntity(cuenta);
         return cuentaDTO;
@@ -59,6 +73,13 @@ public class UserController {
         cuentadb.save(origen);
         cuentadb.save(destino);
         return transaccionDTO;
+    }
+
+    public List<Usuario> getAllUser() {
+        UserConverter converter = new UserConverter();
+        List<UserDTO> userDTO = converter.fromEntity(userdb.findAll());
+        List<Usuario> x = userdb.findAll();
+        return x;
     }
 
 }

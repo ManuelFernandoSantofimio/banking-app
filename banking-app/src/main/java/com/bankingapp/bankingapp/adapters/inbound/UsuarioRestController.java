@@ -1,5 +1,7 @@
 package com.bankingapp.bankingapp.adapters.inbound;
 
+import com.bankingapp.bankingapp.adapters.dto.usuarios.UserConverter;
+import com.bankingapp.bankingapp.adapters.dto.usuarios.UserDTO;
 import com.bankingapp.bankingapp.application.controller.UserController;
 import com.bankingapp.bankingapp.domain.entity.Usuario;
 import org.springframework.http.MediaType;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/bank/usuario")
 public class UsuarioRestController {
     private final UserController userController;
 

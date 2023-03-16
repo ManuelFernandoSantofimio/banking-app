@@ -9,15 +9,13 @@ import java.util.List;
 @Table(name = "usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "usuario_id", nullable = false, unique = true)
     private Long id;
     @Column(name = "name", length = 255)
     private String name;
     @Column(name = "email", length = 255)
     private String email;
-    @Column(name = "pass", length = 255)
-    private String pass;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cuenta> cuentas = new ArrayList<>();
 
@@ -26,5 +24,37 @@ public class Usuario {
     public Usuario(String nombre, String apellido) {
         this.name = name;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/bank/cuenta")
 public class CuentaRestController {
     private final UserController userController;
 
@@ -19,15 +19,15 @@ public class CuentaRestController {
         this.userController = userController;
     }
 
-    @GetMapping("/cuenta")
+    @GetMapping
     public ResponseEntity<List<Cuenta>> getAllCuentas(){
         List<Cuenta> userdto = userController.getAllCuentas();
         return ResponseEntity.status(200)
                 .body(userdto);
     }
-    @PostMapping("/cuenta")
+    @PostMapping
     public ResponseEntity<CuentaDTO> createCuenta(){
-        CuentaDTO userdto = userController.createCuenta();
+        CuentaDTO userdto = userController.createCuenta(1L);
         return ResponseEntity.status(200)
                 .body(userdto);
     }
