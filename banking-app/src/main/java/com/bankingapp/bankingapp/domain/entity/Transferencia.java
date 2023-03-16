@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Transferencia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_transferencia", nullable = false, unique = true)
+    @Column(name = "id_transferencia", unique = true)
     private Long id;
     @Column(name = "numero", length = 255)
     private Long cuentaOrigen;

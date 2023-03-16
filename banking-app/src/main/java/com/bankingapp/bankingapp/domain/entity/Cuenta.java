@@ -6,18 +6,33 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table
+@Table(name = "cuentas")
 public class Cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_cuenta", nullable = false, unique = true)
+    @Column(name = "id_cuenta", unique = true)
     private Long id;
     @Column(name = "numero", length = 255)
     private String numero;
     @Column(name = "saldo", length = 255)
     private BigDecimal saldo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
-    public Cuenta() {
+    public Cuenta() {}
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Cuenta(BigDecimal saldo, Usuario usuario) {
+        this.saldo = saldo;
+        this.usuario = usuario;
     }
 
     public Long getId() {
